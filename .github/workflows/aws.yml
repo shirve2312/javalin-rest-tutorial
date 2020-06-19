@@ -43,7 +43,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-west-1
+        aws-region: us-east-1
 
     - name: Login to Amazon ECR
       id: login-ecr
@@ -53,7 +53,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: javalin-repo
+        ECR_REPOSITORY: suyog-repo
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build a docker container and
@@ -76,5 +76,5 @@ jobs:
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: javalin-service
-        cluster: fargate
+        cluster: suyogfargate
         wait-for-service-stability: true
